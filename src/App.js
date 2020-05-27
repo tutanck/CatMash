@@ -2,6 +2,7 @@ import React from 'react';
 import { CssBaseline, AppBar, Toolbar, Typography, Button } from '@material-ui/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import CatList from './pages/CatList';
+import CatMatch from './pages/CatMatch';
 import { makeStyles } from '@material-ui/core/styles';
 import { blue } from '@material-ui/core/colors';
 
@@ -46,6 +47,10 @@ function App() {
         <Switch>
           <Route path='/gallery'>
             <CatList />
+          </Route>
+
+          <Route path='/'>
+            <CatMatch />
           </Route>
         </Switch>
       </Router>
