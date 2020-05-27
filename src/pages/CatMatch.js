@@ -56,6 +56,19 @@ export default function CatMatch() {
     }
   }
 
+  async function voteForCat(catId) {
+    setActionInProgress(true);
+
+    try {
+      await Axios.post(`http://localhost:3000/votes/add/by/cat/${catId}`, { vote: 1 });
+    } catch (err) {
+      alert('Veuillez réessayer plus tard');
+    } finally {
+      setActionInProgress(false);
+      fetchCats();
+    }
+  }
+
   useEffect(() => {
     fetchCats();
   }, []);
@@ -63,12 +76,12 @@ export default function CatMatch() {
   return (
     <div className={classes.root}>
       <Grid container alignItems='stretch'>
-        <Grid item xs={6} onClick={() => alert()}>
+        <Grid item xs={6} onClick={() => voteForCat(leftCat._id)}>
           <div className={clsx(classes.bloc, classes.leftBloc)}>
             <Avatar alt={leftCat.url} src={leftCat.url} className={classes.avatar} />
           </div>
         </Grid>
-        <Grid item xs={6} onClick={() => alert()}>
+        <Grid item xs={6} onClick={() => voteForCat(rightCat._id)}>
           <div className={clsx(classes.bloc, classes.rightBloc)}>
             <Avatar alt={rightCat.url} src={rightCat.url} className={classes.avatar} />
           </div>
