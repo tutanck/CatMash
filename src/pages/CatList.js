@@ -1,8 +1,8 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import LoaderDialog from '../components/LoaderDialog.js';
 import { makeStyles } from '@material-ui/core/styles';
 import { GridList, GridListTile, GridListTileBar } from '@material-ui/core';
+import { get } from '../utils/api-client';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,10 +28,10 @@ export default function CatList() {
     setIsLoadingCats(true);
 
     try {
-      const data = await axios.get('http://localhost:3000/cats/list');
+      const data = await get(`/cats/list`);
 
-      if (data && data.data.length > 0) {
-        setCats(data.data);
+      if (data.length > 0) {
+        setCats(data);
       }
     } catch (err) {
       alert('Impossible de charger la galerie');
