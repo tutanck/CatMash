@@ -60,7 +60,7 @@ export default function CatMatch() {
     setActionInProgress(true);
 
     try {
-      await post(`/votes/add/by/cat/${catId}`, { vote: 1 });
+      await post(`/votes/add/by/cat/${catId}`, { data: { vote: 1 } });
     } catch (err) {
       alert('Veuillez réessayer plus tard');
     } finally {
