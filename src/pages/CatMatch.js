@@ -4,7 +4,7 @@ import { Grid, Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { lightBlue } from '@material-ui/core/colors';
 import clsx from 'clsx';
-import Axios from 'axios';
+import { get, post } from '../utils/api-client';
 import LoaderDialog from '../components/LoaderDialog';
 
 const useStyles = makeStyles((theme) => ({
@@ -44,10 +44,10 @@ export default function CatMatch() {
     setActionInProgress(true);
 
     try {
-      const data = await Axios.get('http://localhost:3000/cats/match');
+      const data = await get(`/cats/match`);
 
-      if (data && data.data.length > 0) {
-        setCats(data.data);
+      if (data.length > 0) {
+        setCats(data);
       }
     } catch (err) {
       alert('Veuillez réésayer plus tard');
@@ -60,7 +60,7 @@ export default function CatMatch() {
     setActionInProgress(true);
 
     try {
-      await Axios.post(`http://localhost:3000/votes/add/by/cat/${catId}`, { vote: 1 });
+      await post(`/votes/add/by/cat/${catId}`, { vote: 1 });
     } catch (err) {
       alert('Veuillez réessayer plus tard');
     } finally {
